@@ -1,4 +1,4 @@
-// import flatpickr from "flatpickr";
+import flatpickr from "flatpickr";
 // // Додатковий імпорт стилів
 // import "flatpickr/dist/flatpickr.min.css";// Оголошення змінної для збереження обраної користувачем дати
 
