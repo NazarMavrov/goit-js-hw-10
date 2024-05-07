@@ -1,14 +1,15 @@
 import flatpickr from "flatpickr";
 
 let userSelectedDate = null;
+let timerInterval;
 
 function validateSelectedDate(selectedDates) {
   if (selectedDates[0] < new Date()) {
     iziToast.error({ message: 'Please choose a date in the future' });
-    document.getElementById('start-btn').disabled = true;
+    document.getElementById('start-btn').dataset.start = true;
   } else {
     userSelectedDate = selectedDates[0];
-    document.getElementById('start-btn').disabled = false;
+    document.getElementById('start-btn').dataset.start = false;
   }
 }
 
@@ -30,7 +31,7 @@ function updateTimer() {
 
   if (timeDifference <= 0) {
     clearInterval(timerInterval);
-    document.getElementById('start-btn').disabled = false;
+    document.getElementById('start-btn').dataset.start = false;
     iziToast.success({ message: 'Time is up!' });
     return;
   }
@@ -58,7 +59,7 @@ function convertMs(ms) {
 }
 
 document.getElementById('start-btn').addEventListener('click', () => {
-  document.getElementById('start-btn').disabled = true;
+  document.getElementById('start-btn').dataset.start = true;
   userSelectedDate = new Date(userSelectedDate);
   timerInterval = setInterval(updateTimer, 1000);
 });
