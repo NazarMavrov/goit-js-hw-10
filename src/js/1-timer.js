@@ -2,6 +2,7 @@ import flatpickr from "flatpickr";
 
 let userSelectedDate = null;
 let timerInterval;
+const startButton = document.getElementById('start-btn');
 
 function validateSelectedDate(selectedDates) {
   if (selectedDates[0] < new Date()) {
@@ -9,7 +10,7 @@ function validateSelectedDate(selectedDates) {
     document.getElementById('start-btn').dataset.start = true;
   } else {
     userSelectedDate = selectedDates[0];
-    document.getElementById('start-btn').dataset.start = false;
+    startButton.disabled = false;
   }
 }
 
@@ -31,7 +32,7 @@ function updateTimer() {
 
   if (timeDifference <= 0) {
     clearInterval(timerInterval);
-    document.getElementById('start-btn').dataset.start = false;
+    startButton.disabled = false;
     iziToast.success({ message: 'Time is up!' });
     return;
   }
@@ -58,8 +59,8 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-document.getElementById('start-btn').addEventListener('click', () => {
-  document.getElementById('start-btn').dataset.start = true;
+startButton.addEventListener('click', () => {
+  startButton.disabled = true;
   userSelectedDate = new Date(userSelectedDate);
   timerInterval = setInterval(updateTimer, 1000);
 });
